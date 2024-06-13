@@ -36,8 +36,6 @@ The `visualize.py` script in this repository can be used to visualize the 3D Con
 Here is an example of how to use the 3D Convex Hull algorithm:
 
 ```rust
-use convex_hull_3d::{Point3, convex_hull_3d};
-
 fn main() {
     // Generate a set of random points
     let points = create_rng_ponts(1000);
