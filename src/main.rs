@@ -21,13 +21,19 @@ struct Cli {
     
     #[structopt(short, long, default_value = "convex_hull.json", parse(from_os_str))]
     output_file: PathBuf,
+
+    #[structopt(short, long, default_value = "false", parse(try_from_str))]
+    dblp_record: bool,
 }
 
 fn main() {
     let args = Cli::from_args();  // Get parsed arguments
 
-    // let points: Vec<Point> = populate_point_vec();
-    let points: Vec<Point> = create_rng_ponts(args.num_points);
+    let points: Vec<Point> = if args.dblp_record {
+        populate_point_vec()
+    } else {
+        create_rng_ponts(args.num_points)
+    };
 
     let mut convex_hull = ConvexHull::new(points.to_vec());
 

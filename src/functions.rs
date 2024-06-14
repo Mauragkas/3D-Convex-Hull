@@ -76,21 +76,16 @@ fn point_to_plane_distance(plane: &Plane, point: &Point) -> f64 {
     distance
 }
 
+// Improved version of the farthest_point_from_plane function
 pub fn farthest_point_from_plane(plane: &Plane, points: &[Point]) -> Option<Point> {
-    let mut max_distance = 0.0;
-    let mut furthest_point = Point::new(None, 0, 0, 0);
-    for point in points.iter() {
-        let distance = point_to_plane_distance(&plane, &point);
-        if distance > max_distance {
-            max_distance = distance;
-            furthest_point = point.clone();
-        }
-    }
-    match max_distance {
-        #[allow(illegal_floating_point_literal_pattern)]
-        0.0 => None,
-        _ => Some(furthest_point),
-    }
+    points
+        .iter()
+        .max_by(|a, b| {
+            point_to_plane_distance(plane, a)
+                .partial_cmp(&point_to_plane_distance(plane, b))
+                .unwrap_or(std::cmp::Ordering::Equal)
+        })
+        .cloned()
 }
 
 pub fn point_above_plane(plane: &Plane, point: &Point) -> bool {

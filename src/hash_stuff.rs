@@ -2,7 +2,7 @@
 use serde::{Deserialize, Serialize};
 use lazy_static::lazy_static;
 
-const FILE_LOCATION: &str = "../../.env";
+const FILE_LOCATION: &str = "./.env";
 
 #[derive(Clone, Debug)]
 pub struct Env {
